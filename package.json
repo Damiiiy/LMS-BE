@@ -1,0 +1,14 @@
+{
+  "name": "lms-be",
+  "version": "1.0.0",
+  "description": "Learning Management System Backend",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
