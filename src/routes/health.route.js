@@ -5,7 +5,7 @@ const router = Router();
 router.get('/', (req, res) => {
   res.status(200).json({
     status: 'success',
-    message: 'System is healthy 🚀',
+    message: 'System is healthy',
     timestamp: new Date().toISOString()
   });
 });

@@ -13,7 +13,7 @@ export const errorHandler = (err, req, res, next) => {
     });
   }
 
-  // Production error formatting
+
   if (err.isOperational) {
     return res.status(err.statusCode).json({
       status: err.status,
@@ -21,8 +21,7 @@ export const errorHandler = (err, req, res, next) => {
     });
   }
 
-  // Programming or unknown errors: don't leak error details
-  console.error('ERROR 💥', err);
+  console.error('ERROR:', err);
   return res.status(500).json({
     status: 'error',
     message: 'Something went very wrong!'
