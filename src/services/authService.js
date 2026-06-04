@@ -1,7 +1,7 @@
 // Services - business logic only per spec
 import User from '../models/User.js';
 import Session from '../models/Session.js';
-import * as jwtHelper from '../utils/jwtHelper.js';
+import jwtHelper from '../utils/jwtHelper.js';
 import { SESSION_TIMEOUT_MINUTES, MESSAGES } from '../constants/authConstants.js';
 
 class AuthService {
