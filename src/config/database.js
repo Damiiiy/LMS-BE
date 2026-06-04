@@ -1,12 +1,9 @@
 // Config - MongoDB connection
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 async function connectDB() {
   try {
-    const conn = await mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
+    const conn = await mongoose.connect(process.env.MONGODB_URI);
     console.log(`MongoDB Connected: ${conn.connection.host}`);
     return conn;
   } catch (error) {
@@ -15,4 +12,4 @@ async function connectDB() {
   }
 }
 
-module.exports = connectDB;
+export default connectDB;

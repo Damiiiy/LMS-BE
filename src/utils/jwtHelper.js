@@ -1,9 +1,9 @@
 // Utils - token generation and verification
-const jwt = require('jsonwebtoken');
-const { JWT_ALGORITHM } = require('../constants/authConstants');
+import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d';
+const JWT_ALGORITHM = 'HS256';
 
 // Generate JWT token
 function generateToken(payload) {
@@ -33,8 +33,10 @@ function decodeToken(token) {
   return jwt.decode(token);
 }
 
-module.exports = {
+const jwtHelper = {
   generateToken,
   verifyToken,
   decodeToken
 };
+
+export default jwtHelper;

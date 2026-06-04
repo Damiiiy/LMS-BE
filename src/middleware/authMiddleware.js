@@ -1,7 +1,7 @@
 // Middlewares - token verification per spec
-const jwtHelper = require('../utils/jwtHelper');
-const Session = require('../models/Session');
-const { SESSION_TIMEOUT_MINUTES } = require('../constants/authConstants');
+import jwtHelper from '../utils/jwtHelper.js';
+import Session from '../models/Session.js';
+import { SESSION_TIMEOUT_MINUTES } from '../constants/authConstants.js';
 
 // Middleware: Verify JWT and check session
 async function authenticate(req, res, next) {
@@ -100,7 +100,7 @@ function requireAdmin(req, res, next) {
   next();
 }
 
-module.exports = {
+export {
   authenticate,
   requireApproved,
   requireAdmin

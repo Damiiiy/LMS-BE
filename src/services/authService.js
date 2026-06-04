@@ -1,11 +1,10 @@
 // Services - business logic only per spec
-const User = require('../models/User');
-const Session = require('../models/Session');
-const jwtHelper = require('../utils/jwtHelper');
-const { SESSION_TIMEOUT_MINUTES, MESSAGES } = require('../constants/authConstants');
+import User from '../models/User.js';
+import Session from '../models/Session.js';
+import * as jwtHelper from '../utils/jwtHelper.js';
+import { SESSION_TIMEOUT_MINUTES, MESSAGES } from '../constants/authConstants.js';
 
 class AuthService {
-  // Business logic: login validation and session creation
   async login(email, password) {
     // Validate input
     if (!email || !password) {
@@ -29,18 +28,18 @@ class AuthService {
       throw new Error(MESSAGES.NOT_APPROVED);
     }
 
-    // Calculate expiration
+    // ✅ Calculate expiration using SESSION_TIMEOUT_MINUTES from .env
     const expiresAt = new Date();
     expiresAt.setMinutes(expiresAt.getMinutes() + SESSION_TIMEOUT_MINUTES);
 
-    // Generate JWT token
+    // Generate JWT token (expires in 7d from .env JWT_EXPIRES_IN)
     const token = jwtHelper.generateToken({
       userId: user._id,
       email: user.email,
       role: user.role
     });
 
-    // Create session in database
+    // Create session with calculated expiresAt
     const session = await Session.createSession(user._id, token, expiresAt);
 
     // Return user data (excluding password)
@@ -63,7 +62,6 @@ class AuthService {
     };
   }
 
-  // Business logic: logout
   async logout(token) {
     if (!token) {
       throw new Error('No token provided');
@@ -77,7 +75,6 @@ class AuthService {
     return { message: 'Logout successful' };
   }
 
-  // Business logic: get current user from session
   async getCurrentUser(token) {
     const session = await Session.findByToken(token);
     if (!session) {
@@ -107,4 +104,4 @@ class AuthService {
   }
 }
 
-module.exports = new AuthService();
+export default new AuthService();
