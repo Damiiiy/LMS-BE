@@ -5,6 +5,11 @@ import swaggerUi from 'swagger-ui-express';
 
 import swaggerSpecs from './config/swagger.js';
 import authRoutes from './routes/authRoutes.js';
+import userRoutes from './routes/userRoutes.js';
+import dashboardRoutes from './routes/dashboardRoutes.js';
+import resourceRoutes from './routes/resourceRoutes.js';
+import adminRoutes from './routes/admin/index.js';
+import { authenticate, requireAdmin } from './middleware/authMiddleware.js';
 
 const app = express();
 
@@ -75,6 +80,28 @@ app.use(
   authRoutes
 );
 
+app.use(
+  '/api/users',
+  userRoutes
+);
+
+app.use(
+  '/api/dashboard',
+  dashboardRoutes
+);
+
+app.use(
+  '/api/resources',
+  resourceRoutes
+);
+
+app.use(
+  '/api/admin',
+  authenticate,
+  requireAdmin,
+  adminRoutes
+);
+
 
 // Health
 
@@ -115,9 +142,11 @@ app.get(
       documentation:'/api-docs',
 
       endpoints:{
-
-        auth:'/api/auth'
-
+        auth:'/api/auth',
+        users:'/api/users',
+        dashboard:'/api/dashboard',
+        resources:'/api/resources',
+        admin:'/api/admin'
       }
 
     });

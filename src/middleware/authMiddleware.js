@@ -64,7 +64,8 @@ async function authenticate(req, res, next) {
       id: session.userId._id,
       email: session.userId.email,
       role: session.userId.role,
-      isApproved: session.userId.isApproved
+      isApproved: session.userId.isApproved,
+      trackId: session.userId.trackId
     };
     req.token = token;
     

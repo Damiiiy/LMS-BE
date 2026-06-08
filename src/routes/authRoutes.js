@@ -1,4 +1,3 @@
-// Routes - no business logic per spec
 import express from 'express';
 import authController from '../controllers/authController.js';
 import { authenticate } from '../middleware/authMiddleware.js';
