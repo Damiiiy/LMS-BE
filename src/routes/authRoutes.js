@@ -4,6 +4,40 @@ import { authenticate } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
+//to be deleted later -NDY
+
+/**
+ * @swagger
+ * /auth/signup:
+ *   post:
+ *     summary: (Temporary) Create a new user account
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *               - fullName
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               fullName:
+ *                 type: string
+ *               trackId:
+ *                 type: string
+ *                 description: Optional Track ID for the user
+ *     responses:
+ *       201:
+ *         description: Account created
+ */
+router.post('/signup', authController.signup);
+
 /**
  * @swagger
  * /auth/login:

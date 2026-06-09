@@ -1,10 +1,40 @@
-// Services - business logic only per spec
 import User from '../models/User.js';
 import Session from '../models/Session.js';
+import bcrypt from 'bcrypt';
 import jwtHelper from '../utils/jwtHelper.js';
 import { SESSION_TIMEOUT_MINUTES, MESSAGES } from '../constants/authConstants.js';
 
 class AuthService {
+//to be deleted -NDY
+
+  async signup(data) {
+    if (!data.email || !data.password || !data.fullName) {
+      throw new Error('Email, password, and fullName are required');
+    }
+    const existing = await User.findByEmail(data.email);
+    if (existing) {
+      throw new Error('Email already in use');
+    }
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(data.password, salt);
+    
+    const user = new User({
+      ...data,
+      password: hashedPassword,
+      isApproved: true 
+    });
+    const savedUser = await user.save();
+    const userObj = savedUser.toObject();
+    delete userObj.password;
+    return userObj;
+  }
+
+
+
+
+
+
+
   async login(email, password) {
     // Validate input
     if (!email || !password) {

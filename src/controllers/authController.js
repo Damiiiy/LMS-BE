@@ -1,9 +1,30 @@
-// Controllers - no database queries per spec
 import authService from '../services/authService.js';
 import authValidator from '../validators/authValidator.js';
 import { MESSAGES } from '../constants/authConstants.js';
 
 class AuthController {
+  //to be deleted later -NDY
+  async signup(req, res) {
+    try {
+      const result = await authService.signup(req.body);
+      res.status(201).json({
+        success: true,
+        data: result
+      });
+    } catch (error) {
+      res.status(400).json({
+        success: false,
+        message: error.message
+      });
+    }
+  }
+
+
+
+
+
+
+
   // Login endpoint handler
   async login(req, res) {
     try {
