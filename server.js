@@ -6,8 +6,7 @@ dns.setServers(['8.8.8.8', '8.8.4.4']);
 
 // Server entry point
 
-import dotenv from 'dotenv';
-dotenv.config();
+import 'dotenv/config';
 
 import connectDB from './src/config/database.js';
 import app from './src/app.js';
