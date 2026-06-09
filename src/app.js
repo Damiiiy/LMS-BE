@@ -80,6 +80,25 @@ app.get('/redoc', redoc({
 }));
 
 
+import mongoose from 'mongoose';
+
+// Debug endpoint for database connection
+app.get('/api/test-db', (req, res) => {
+  const state = mongoose.connection.readyState;
+  const states = { 0: 'disconnected', 1: 'connected', 2: 'connecting', 3: 'disconnecting' };
+  
+  const uri = process.env.MONGODB_URI || '';
+  const maskedUri = uri.replace(/\/\/[^:]+:[^@]+@/, '//***:***@');
+  
+  res.json({
+    success: true,
+    state: states[state] || state,
+    rawState: state,
+    uri: maskedUri,
+    hasSecret: !!process.env.JWT_SECRET
+  });
+});
+
 // Routes
 app.use(
   '/api/auth',
