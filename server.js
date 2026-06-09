@@ -1,9 +1,3 @@
-// server.js
-import dns from 'node:dns';
-
-// Force Node.js to use Google's reliable DNS servers
-dns.setServers(['8.8.8.8', '8.8.4.4']);
-
 // Server entry point
 
 import 'dotenv/config';
