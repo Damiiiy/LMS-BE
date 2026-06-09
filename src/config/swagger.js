@@ -14,8 +14,8 @@ const options = {
     },
     servers: [
       {
-        url: `http://localhost:${process.env.PORT || 5000}/api`,
-        description: 'Development server'
+        url: '/api',
+        description: 'Current Environment API'
       }
     ],
     components: {
@@ -100,7 +100,12 @@ const options = {
       }
     ]
   },
-  apis: ['./src/routes/*.js', './src/controllers/*.js']
+  apis: [
+    './src/routes/*.js', 
+    './src/controllers/*.js',
+    './src/routes/admin/*.js',
+    './src/controllers/admin/*.js'
+  ]
 };
 
 export default swaggerJsdoc(options);

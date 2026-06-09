@@ -3,6 +3,7 @@
 import express from 'express';
 import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
+import redoc from 'redoc-express';
 
 import swaggerSpecs from './config/swagger.js';
 import authRoutes from './routes/authRoutes.js';
@@ -16,7 +17,6 @@ const app = express();
 
 
 // Middleware
-
 app.use(cors());
 app.use(express.json());
 
@@ -28,10 +28,9 @@ app.use(
 
 
 // Swagger documentation route
-
 app.use(
 
-  '/api-docs',
+  '/swagger',
 
   swaggerUi.serve,
 
@@ -59,7 +58,7 @@ app.use(
 
 app.get(
 
-  '/api-docs.json',
+  '/swagger.json',
 
   (req,res)=>{
 
@@ -74,9 +73,14 @@ app.get(
 
 );
 
+// Redoc documentation route
+app.get('/redoc', redoc({
+  title: 'FutureForge LMS API Docs',
+  specUrl: '/swagger.json'
+}));
+
 
 // Routes
-
 app.use(
   '/api/auth',
   authRoutes
