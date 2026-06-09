@@ -1,6 +1,7 @@
 // Main app configuration
 
 import express from 'express';
+import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 
 import swaggerSpecs from './config/swagger.js';
@@ -16,6 +17,7 @@ const app = express();
 
 // Middleware
 
+app.use(cors());
 app.use(express.json());
 
 app.use(
