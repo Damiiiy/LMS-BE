@@ -18,6 +18,25 @@ const router = express.Router();
  *     tags: [Admin Tracks]
  *     security:
  *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *               - cohortId
+ *             properties:
+ *               name:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               cohortId:
+ *                 type: string
+ *                 description: ObjectId of the Cohort
+ *               youtubePlaylistUrl:
+ *                 type: string
  *     responses:
  *       201:
  *         description: Track created successfully
@@ -72,6 +91,22 @@ router.get('/:id', trackController.getTrackById);
  *         required: true
  *         schema:
  *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               cohortId:
+ *                 type: string
+ *                 description: ObjectId of the Cohort
+ *               youtubePlaylistUrl:
+ *                 type: string
  *     responses:
  *       200:
  *         description: Track updated successfully

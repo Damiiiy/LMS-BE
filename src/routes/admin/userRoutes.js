@@ -18,6 +18,26 @@ const router = express.Router();
  *     tags: [Admin Users]
  *     security:
  *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - fullName
+ *             properties:
+ *               email:
+ *                 type: string
+ *               fullName:
+ *                 type: string
+ *               role:
+ *                 type: string
+ *                 enum: [forger, admin]
+ *               trackId:
+ *                 type: string
+ *                 description: ObjectId of the Track
  *     responses:
  *       201:
  *         description: User provisioned successfully
@@ -72,6 +92,25 @@ router.get('/:id', userController.getUserById);
  *         required: true
  *         schema:
  *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               fullName:
+ *                 type: string
+ *               role:
+ *                 type: string
+ *                 enum: [forger, admin]
+ *               isApproved:
+ *                 type: boolean
+ *               trackId:
+ *                 type: string
+ *                 description: ObjectId of the Track
  *     responses:
  *       200:
  *         description: User updated successfully

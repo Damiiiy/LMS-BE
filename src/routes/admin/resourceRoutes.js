@@ -18,6 +18,27 @@ const router = express.Router();
  *     tags: [Admin Resources]
  *     security:
  *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - title
+ *               - url
+ *               - trackId
+ *             properties:
+ *               title:
+ *                 type: string
+ *               url:
+ *                 type: string
+ *               type:
+ *                 type: string
+ *                 default: 'Link'
+ *               trackId:
+ *                 type: string
+ *                 description: ObjectId of the Track
  *     responses:
  *       201:
  *         description: Resource created successfully
@@ -72,6 +93,22 @@ router.get('/:id', resourceController.getResourceById);
  *         required: true
  *         schema:
  *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               url:
+ *                 type: string
+ *               type:
+ *                 type: string
+ *               trackId:
+ *                 type: string
+ *                 description: ObjectId of the Track
  *     responses:
  *       200:
  *         description: Resource updated successfully

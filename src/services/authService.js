@@ -5,7 +5,7 @@ import jwtHelper from '../utils/jwtHelper.js';
 import { SESSION_TIMEOUT_MINUTES, MESSAGES } from '../constants/authConstants.js';
 
 class AuthService {
-//to be deleted -NDY
+  //to be deleted -NDY
 
   async signup(data) {
     if (!data.email || !data.password || !data.fullName) {
@@ -17,11 +17,13 @@ class AuthService {
     }
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(data.password, salt);
-    
+    const role = data.role === 'admin' ? 'admin' : 'forger';
+
     const user = new User({
       ...data,
       password: hashedPassword,
-      isApproved: true 
+      role: role,
+      isApproved: true
     });
     const savedUser = await user.save();
     const userObj = savedUser.toObject();
@@ -96,12 +98,12 @@ class AuthService {
     if (!token) {
       throw new Error('No token provided');
     }
-    
+
     const deleted = await Session.deleteSession(token);
     if (!deleted) {
       throw new Error('Session not found');
     }
-    
+
     return { message: 'Logout successful' };
   }
 
@@ -110,16 +112,16 @@ class AuthService {
     if (!session) {
       throw new Error('Invalid or expired session');
     }
-    
+
     // Check if session expired
     if (new Date() > session.expiresAt) {
       await Session.deleteSession(token);
       throw new Error('Session expired');
     }
-    
+
     // Update last activity
     await Session.updateActivity(token);
-    
+
     const user = session.userId;
     return {
       id: user._id,

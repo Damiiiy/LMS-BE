@@ -18,6 +18,23 @@ const router = express.Router();
  *     tags: [Admin Cohorts]
  *     security:
  *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *               - startDate
+ *             properties:
+ *               name:
+ *                 type: string
+ *               startDate:
+ *                 type: string
+ *                 format: date-time
+ *               totalWeeks:
+ *                 type: number
  *     responses:
  *       201:
  *         description: Cohort created successfully
@@ -72,6 +89,20 @@ router.get('/:id', cohortController.getCohortById);
  *         required: true
  *         schema:
  *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               startDate:
+ *                 type: string
+ *                 format: date-time
+ *               totalWeeks:
+ *                 type: number
  *     responses:
  *       200:
  *         description: Cohort updated successfully

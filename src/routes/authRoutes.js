@@ -29,6 +29,10 @@ const router = express.Router();
  *                 type: string
  *               fullName:
  *                 type: string
+ *               role:
+ *                 type: string
+ *                 enum: [forger, admin]
+ *                 description: Specify 'admin' to create an admin account (temporary feature)
  *               trackId:
  *                 type: string
  *                 description: Optional Track ID for the user
